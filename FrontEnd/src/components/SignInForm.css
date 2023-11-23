@@ -1,0 +1,38 @@
+.signin-form {
+    max-width: 400px;
+    padding: 20px;
+}
+
+.signin-form h2 {
+    margin-bottom: 20px;
+}
+
+.signin-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.signin-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.signin-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1da1f2;
+    border: none;
+    border-radius: 9999px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.signin-form button:hover {
+    background-color: #0e76a8;
+}

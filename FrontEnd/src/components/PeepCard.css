@@ -1,0 +1,12 @@
+.peep-auth {
+    font-weight: bold;
+}
+
+.username,
+.peep-date {
+    font-size: small;
+}
+
+.peep-card-icon:hover {
+    color: #1da1f2;
+}
