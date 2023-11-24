@@ -1,5 +1,8 @@
 package com.agh.chitter.model;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,17 +15,17 @@ public class Peep {
     private String name;
     private String username;
     private String content;
+    @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     public Peep() {
     }
 
-    public Peep(String name, String username, String content, String createdAt) {
+    public Peep(String name, String username, String content) {
         this.name = name;
         this.username = username;
         this.content = content;
-        this.createdAt = createdAt;
     }
 
     public String getId() {
@@ -53,11 +56,11 @@ public class Peep {
         this.content = content;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return createdAt;
     }
 
-    public void setDate(String createdAt) {
+    public void setDate(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }
