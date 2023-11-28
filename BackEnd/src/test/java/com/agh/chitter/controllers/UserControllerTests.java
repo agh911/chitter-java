@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.agh.chitter.model.User;
 import com.agh.chitter.requests.SignInRequest;
+import com.agh.chitter.requests.SignUpRequest;
 import com.agh.chitter.services.UserService;
 
 public class UserControllerTests {
@@ -129,9 +130,7 @@ public class UserControllerTests {
         String userEmail = "test@example.com";
         String userPassword = "password123";
 
-        SignInRequest signInRequest = new SignInRequest();
-        signInRequest.setEmail(userEmail);
-        signInRequest.setPassword(userPassword);
+        SignInRequest signInRequest = new SignInRequest(userEmail, userPassword);
 
         User mockUser = new User();
         mockUser.setPassword(userPassword);
@@ -176,12 +175,14 @@ public class UserControllerTests {
         newUser.setUsername(username);
         newUser.setEmail(userEmail);
 
+        SignUpRequest signUpRequest = new SignUpRequest(newUser);
+
         when(userService.getUserByUsername(username)).thenReturn(null);
         when(userService.getUserByEmail(userEmail)).thenReturn(null);
         when(userService.addUser(newUser)).thenReturn(newUser);
 
         // Act
-        ResponseEntity<Object> responseEntity = userController.signUp(newUser);
+        ResponseEntity<Object> responseEntity = userController.signUp(signUpRequest.getNewUser());
 
         // Assert
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
