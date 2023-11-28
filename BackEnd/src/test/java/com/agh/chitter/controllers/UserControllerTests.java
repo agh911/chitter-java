@@ -70,6 +70,24 @@ public class UserControllerTests {
     }
 
     @Test
+    void getUserDataUserNotFound() {
+        // Arrange
+        String userEmail = "nonexistent@example.com";
+        SignInRequest signInRequest = new SignInRequest();
+        signInRequest.setEmail(userEmail);
+
+        // Mock the userService method calls and expected behavior
+        when(userService.getUserByEmail(userEmail)).thenReturn(null);
+
+        // Act
+        ResponseEntity<Object> responseEntity = userController.getUserData(signInRequest);
+
+        // Assert
+        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+        assertEquals("Invalid credentials", responseEntity.getBody());
+    }
+
+    @Test
     void getUserById() {
         // Arrange
         User expectedUser = new User();
@@ -168,6 +186,23 @@ public class UserControllerTests {
         // Assert
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertEquals(newUser, responseEntity.getBody());
+    }
+
+    @Test
+    void signUpEmailAlreadyExists() {
+        // Arrange
+        User newUser = new User("User One", "userone", "user1@email.com", "pass1");
+        User anotherNewUser = new User("User Two", "usertwo", "user1@email.com", "newpass");
+
+        when(userService.getUserByUsername(newUser.getUsername())).thenReturn(null);
+        when(userService.getUserByEmail(newUser.getEmail())).thenReturn(anotherNewUser);
+
+        // Act
+        ResponseEntity<Object> responseEntity = userController.signUp(newUser);
+
+        // Assert
+        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
+        assertEquals("Email already exists", responseEntity.getBody());
     }
 
     @Test
