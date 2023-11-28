@@ -139,6 +139,6 @@ To run the test coverage:
 - Add the logic to be able to delete users/peeps in the frontend side.
 
 ## Credits
-[Spring Boot Guide](https://spring.io/guides/gs/spring-boot/)
-[MVN Repositories](https://mvnrepository.com/)
-[Using Mockito](https://www.vogella.com/tutorials/Mockito/article.html)
+- [Spring Boot Guide](https://spring.io/guides/gs/spring-boot/)
+- [MVN Repositories](https://mvnrepository.com/)
+- [Using Mockito](https://www.vogella.com/tutorials/Mockito/article.html)
