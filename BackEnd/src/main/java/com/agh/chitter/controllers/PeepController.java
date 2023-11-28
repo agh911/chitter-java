@@ -6,7 +6,6 @@ import com.agh.chitter.services.PeepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,9 +22,6 @@ public class PeepController {
 
     @PostMapping
     public Peep addPeep(@RequestBody Peep newPeep) {
-        if (newPeep.getDate() == null) {
-            newPeep.setDate(LocalDateTime.now());
-        }
         return peepService.addPeep(newPeep);
     }
 

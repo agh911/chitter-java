@@ -5,9 +5,6 @@ import com.agh.chitter.model.User;
 public class SignUpRequest {
     private User newUser;
 
-    public SignUpRequest() {
-    }
-
     public SignUpRequest(User newUser) {
         this.newUser = newUser;
     }

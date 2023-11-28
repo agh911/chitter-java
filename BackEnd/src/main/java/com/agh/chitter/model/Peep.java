@@ -60,7 +60,7 @@ public class Peep {
         return createdAt;
     }
 
-    public void setDate(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setDate(LocalDateTime date) {
+        this.createdAt = date;
     }
 }

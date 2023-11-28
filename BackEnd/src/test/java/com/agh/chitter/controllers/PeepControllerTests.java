@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,33 @@ public class PeepControllerTests {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void createPeepObjectAndVerifyMethods() {
+        // Arrange
+        String name = "John Doe";
+        String username = "john_doe";
+        String content = "Hello, Chitter!";
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        Peep peep = new Peep();
+        peep.setName(name);
+        peep.setUsername(username);
+        peep.setContent(content);
+        peep.setDate(createdAt);
+
+        // Act
+        String actualName = peep.getName();
+        String actualUsername = peep.getUsername();
+        String actualContent = peep.getContent();
+        LocalDateTime actualCreatedAt = peep.getDate();
+
+        // Assert
+        assertEquals(name, actualName);
+        assertEquals(username, actualUsername);
+        assertEquals(content, actualContent);
+        assertEquals(createdAt, actualCreatedAt);
     }
 
     @Test
