@@ -13,8 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.agh.chitter.model.Peep;
+import com.agh.chitter.model.User;
+import com.agh.chitter.requests.PeepRequest;
 import com.agh.chitter.services.PeepService;
 
 public class PeepControllerTests {
@@ -48,22 +52,26 @@ public class PeepControllerTests {
     @Test
     void testAddPeep() {
         // Arrange
-        Peep newPeep = new Peep("New User", "new_user", "My first chitter!");
+        User newUser = new User("New User", "new_user", "new_user@example.com", "password123");
+        Peep newPeep = new Peep("New User", "new_user", "My first peep!");
+        PeepRequest peepRequest = new PeepRequest(newUser, newPeep);
 
         when(peepService.addPeep(newPeep)).thenReturn(newPeep);
 
         // Act
-        Peep result = peepController.addPeep(newPeep);
+        ResponseEntity<Peep> responseEntity = peepController.addPeep(peepRequest);
 
         // Assert
-        assertEquals(newPeep, result);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals(newPeep, responseEntity.getBody());
         verify(peepService, times(1)).addPeep(newPeep);
     }
 
     @Test
     void testDeletePeep() {
         // Arrange
-        String peepId = "123";
+        Peep newPeep = new Peep("New User", "new_user", "My first peep!");
+        String peepId = newPeep.getId();
 
         // Act
         peepController.deletePeep(peepId);

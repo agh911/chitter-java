@@ -7,7 +7,7 @@ public class PeepRequest {
     private User user;
     private Peep peep;
 
-    public PeepRequest(){}
+    // public PeepRequest(){}
 
     public PeepRequest(User user, Peep peep) {
         this.user = user;
