@@ -59,4 +59,8 @@ public class Peep {
     public LocalDateTime getDate() {
         return createdAt;
     }
+
+    public void setDate(LocalDateTime date) {
+        this.createdAt = date;
+    }
 }

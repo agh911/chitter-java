@@ -34,6 +34,24 @@ public class UserControllerTests {
     }
 
     @Test
+    void createUserObjectAndVerifyMethods() {
+        // Arrange
+        User user = new User("John Doe", "john_doe", "john.doe@example.com", "securePassword");
+
+        // Act
+        String name = user.getName();
+        String username = user.getUsername();
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        // Assert
+        assertEquals("John Doe", name);
+        assertEquals("john_doe", username);
+        assertEquals("john.doe@example.com", email);
+        assertEquals("securePassword", password);
+    }
+
+    @Test
     void getAllUsers() {
         // Arrange
         List<User> userList = new ArrayList<>();
@@ -146,23 +164,42 @@ public class UserControllerTests {
     }
 
     @Test
-    void signUpNotSuccessful() {
+    void signInIncorrectPassword() {
         // Arrange
-        User newUser = new User();
-        String username = "testuser";
         String userEmail = "test@example.com";
+        String actualUserPassword = "actualPassword";
+        String incorrectPassword = "incorrectPassword";
 
-        newUser.setUsername(username);
-        newUser.setEmail(userEmail);
+        SignInRequest signInRequest = new SignInRequest(userEmail, incorrectPassword);
 
-        when(userService.getUserByUsername(username)).thenReturn(newUser);
+        User mockUser = new User("Test User", "testuser", userEmail, actualUserPassword);
+
+        when(userService.getUserByEmail(userEmail)).thenReturn(mockUser);
 
         // Act
-        ResponseEntity<Object> responseEntity = userController.signUp(newUser);
+        ResponseEntity<Object> responseEntity = userController.signIn(signInRequest);
 
         // Assert
-        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
-        assertEquals("Username already exists", responseEntity.getBody());
+        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+        assertEquals("Invalid credentials", responseEntity.getBody());
+    }
+
+    @Test
+    void shouldSetPasswordCorrectly() {
+        // Arrange
+        String email = "test@example.com";
+        String password = "testPassword";
+
+        // Create a SignInRequest instance
+        SignInRequest signInRequest = new SignInRequest(email, null);
+
+        // Act
+        // Set the password using the setPassword method
+        signInRequest.setPassword(password);
+
+        // Assert
+        // Verify that the password is correctly set
+        assertEquals(password, signInRequest.getPassword());
     }
 
     @Test
@@ -187,6 +224,23 @@ public class UserControllerTests {
         // Assert
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertEquals(newUser, responseEntity.getBody());
+    }
+
+    @Test
+    void signUpUsernameAlreadyExists() {
+        // Arrange
+        String username = "testuser";
+        User existingUser = new User("Existing User", username, "existing@example.com", "existingPassword");
+        User newUser = new User("New User", username, "new@example.com", "newPassword");
+
+        when(userService.getUserByUsername(username)).thenReturn(existingUser);
+
+        // Act
+        ResponseEntity<Object> responseEntity = userController.signUp(newUser);
+
+        // Assert
+        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
+        assertEquals("Username already exists", responseEntity.getBody());
     }
 
     @Test

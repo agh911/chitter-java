@@ -8,6 +8,7 @@ class ChitterApplicationTests {
 
 	@Test
 	void contextLoads() {
+		ChitterApplication.main(new String[] {});
 	}
 
 }
