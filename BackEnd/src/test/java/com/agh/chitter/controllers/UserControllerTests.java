@@ -126,23 +126,6 @@ public class UserControllerTests {
     }
 
     @Test
-    void signInUserNotFound() {
-        // Arrange
-        SignInRequest signInRequest = new SignInRequest();
-        signInRequest.setEmail("nonexistent@example.com");
-
-        // Mock the userService method calls and expected behavior
-        when(userService.getUserByEmail(signInRequest.getEmail())).thenReturn(null);
-
-        // Act
-        ResponseEntity<Object> responseEntity = userController.signIn(signInRequest);
-
-        // Assert
-        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
-        assertEquals("Invalid credentials", responseEntity.getBody());
-    }
-
-    @Test
     void signInSuccess() {
         // Arrange
         String userEmail = "test@example.com";
@@ -161,6 +144,22 @@ public class UserControllerTests {
         // Assert
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals("Sign-in successful", responseEntity.getBody());
+    }
+
+    @Test
+    void signInUserNotFound() {
+        // Arrange
+        SignInRequest signInRequest = new SignInRequest();
+        signInRequest.setEmail("nonexistent@example.com");
+
+        when(userService.getUserByEmail(signInRequest.getEmail())).thenReturn(null);
+
+        // Act
+        ResponseEntity<Object> responseEntity = userController.signIn(signInRequest);
+
+        // Assert
+        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+        assertEquals("Invalid credentials", responseEntity.getBody());
     }
 
     @Test
