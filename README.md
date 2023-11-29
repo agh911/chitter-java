@@ -39,7 +39,7 @@ Details the chosen approach to address the problem, including the architectural 
    $ ./mvnw spring-boot:run
    ```
    
-3. 2. Navigate to the project's Frontend directory and install dependencies:
+3. Navigate to the project's Frontend directory and install dependencies:
    ```sh
    $ npm install
    ```
