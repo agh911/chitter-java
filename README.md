@@ -135,8 +135,22 @@ To run the test coverage:
 
 ## Future improvements
 - Work on improving error handling both in the backend and frontend.
+   - **Why?** 
+      - Robust error handling enhances user experience by providing clear and informative messages, helping users and developers understand and resolve issues more effectively.
+   - **How?**
+      - Backend: Implement standardized error responses, use HTTP status codes appropriately, and provide detailed error messages in the response body. Log errors for debugging purposes.
+      - Frontend: Develop consistent error handling across the application. Display user-friendly error messages and log errors for developers. Utilize global error handlers and handle specific error scenarios gracefully.
 - Improve security by adding JWT.
+   - **Why?** 
+      - JSON Web Tokens (JWT) provide a secure and stateless authentication mechanism, enhancing the overall security posture of the application. JWTs are valuable for protecting sensitive endpoints and ensuring data integrity.
+   - **How?**
+      - Add a JWT library to the project and configure JWT settings, such as secret keys and expiration times. Implement token generation during user authentication and token verification for protected routes. Add security configurations to use JWT for authentication.
 - Add the logic to be able to delete users/peeps in the frontend side.
+   - **Why?** 
+      - Allowing users to delete their accounts or content enhances user control and aligns with user expectations. It also contributes to a more interactive and user-friendly application.
+   - **How?**
+      - Implement a UI for deleting users/peeps. Provide a confirmation dialog/modal to prevent accidental deletions. Send deletion requests to the backend API, and handle success and error responses appropriately. Update the UI to reflect changes in order to provide a responsive and seamless user experience.
+
 
 ## Credits
 - [Spring Boot Guide](https://spring.io/guides/gs/spring-boot/)
